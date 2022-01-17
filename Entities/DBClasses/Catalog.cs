@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.DBClasses
 {
-    public class Catalog
+    public class Catalog : IBaseEntity
     {
         public long Id { get; set; }
 
