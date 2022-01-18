@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.DTOClasses.ReturnResultsEntities
 {
-    public interface IDataResult<T> : IResult
+    internal class Class1
     {
-        T Data { get; }
     }
 }

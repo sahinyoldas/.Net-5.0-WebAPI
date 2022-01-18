@@ -1,9 +1,8 @@
-﻿using Entities.DTOClasses.ReturnResults;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Utilities.Results
+namespace Entities.DTOClasses.ReturnResultsEntities
 {
     public class Result : IResult
     {

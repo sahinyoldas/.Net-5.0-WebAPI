@@ -1,5 +1,5 @@
 ﻿using Entities.DBClasses;
-using Entities.DTOClasses.ReturnResults;
+using Entities.DTOClasses.ReturnResultsEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface IAlbumService
     {
         Task<IDataResult<List<Album>>> GetAll();
-        Task<IDataResult<List<Album>>> GetAlbumListByTitleAndArtistName(string title, string artistName);
+        Task<IDataResult<IList<Album>>> GetAlbumListByTitleAndArtistName(string title, string artistName);
         Task<IDataResult<Album>> GetById(long albumId);
         Task<IResult> Delete(Album album);
         Task<IResult> Update(Album album);

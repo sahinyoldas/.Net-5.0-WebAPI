@@ -1,9 +1,9 @@
-﻿using Entities.DTOClasses.ReturnResults;
+﻿using Entities.DTOClasses.ReturnResultsEntities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Utilities.Results
+namespace Entities.DTOClasses.ReturnResultsEntities
 {
     public class ErrorDataResult<T> : DataResult<T>, IDataResult<T>
     {

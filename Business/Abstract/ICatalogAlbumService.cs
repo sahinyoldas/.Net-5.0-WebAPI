@@ -1,5 +1,5 @@
 ﻿using Entities.DBClasses;
-using Entities.DTOClasses.ReturnResults;
+using Entities.DTOClasses.ReturnResultsEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

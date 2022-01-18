@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Utilities.Results
+namespace Entities.DTOClasses.ReturnResultsEntities
 {
     public class ErrorResult : Result
     {

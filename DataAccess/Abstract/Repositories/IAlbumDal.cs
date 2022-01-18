@@ -1,4 +1,5 @@
 ﻿using Entities.DBClasses;
+using Entities.DTOClasses.ReturnResultsEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace DataAccess.Abstract.Repositories
 {
     public interface IAlbumDal : IBaseEntityRespository<Album>
     {
-        Task<List<Album>> GetAlbumListByTitleAndArtistName(string title, string artistName);
+        Task<IList<Album>> GetAlbumListByTitleAndArtistName(string title, string artistName);
+        Task<Result> CheckIfAlbumExist(Album album);
     }
 }
