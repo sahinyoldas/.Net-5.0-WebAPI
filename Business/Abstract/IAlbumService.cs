@@ -10,11 +10,11 @@ namespace Business.Abstract
 {
     public interface IAlbumService
     {
-        IDataResult<List<Album>> GetAll();
-        IDataResult<List<Album>> GetAlbumListByTitleAndArtistName(string title, string artistName);
-        IDataResult<Album> GetById(int albumId);
-        IResult Delete(Album album);
-        IResult Update(Album album);
-        IResult Add(Album album);
+        Task<IDataResult<List<Album>>> GetAll();
+        Task<IDataResult<List<Album>>> GetAlbumListByTitleAndArtistName(string title, string artistName);
+        Task<IDataResult<Album>> GetById(int albumId);
+        Task<IResult> Delete(Album album);
+        Task<IResult> Update(Album album);
+        Task<IResult> Add(Album album);
     }
 }

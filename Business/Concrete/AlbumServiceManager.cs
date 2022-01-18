@@ -18,32 +18,32 @@ namespace Business.Concrete
             _albumDal = albumDal;
         }
 
-        public IResult Add(Album album)
+        public async Task<IResult> Add(Album album)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Delete(Album album)
+        public async Task<IResult> Delete(Album album)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Album>> GetAlbumListByTitleAndArtistName(string title, string artistName)
+        public async Task<IDataResult<List<Album>>> GetAlbumListByTitleAndArtistName(string title, string artistName)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Album>> GetAll()
+        public async Task<IDataResult<List<Album>>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<Album> GetById(int albumId)
+        public async Task<IDataResult<Album>> GetById(int albumId)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Update(Album album)
+        public async Task<IResult> Update(Album album)
         {
             throw new NotImplementedException();
         }

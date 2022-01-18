@@ -9,6 +9,6 @@ namespace DataAccess.Abstract
 {
     public interface IAlbumDal : IBaseEntityRespository<Album>
     {
-        void GetAlbumListByTitleAndArtistName(string title, string artistName);
+        Task<List<Album>> GetAlbumListByTitleAndArtistName(string title, string artistName);
     }
 }

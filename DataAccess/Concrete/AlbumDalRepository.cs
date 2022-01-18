@@ -10,7 +10,7 @@ namespace DataAccess.Concrete
 {
     public class AlbumDalRepository : BaseEntityRepository<Album, MusicalogContext>, IAlbumDal
     {
-        public void GetAlbumListByTitleAndArtistName(string title, string artistName)
+        public async Task<List<Album>> GetAlbumListByTitleAndArtistName(string title, string artistName)
         {
             throw new NotImplementedException();
         }
