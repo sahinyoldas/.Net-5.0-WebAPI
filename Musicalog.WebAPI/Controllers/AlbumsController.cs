@@ -26,7 +26,7 @@ namespace Musicalog.WebAPI.Controllers
                 return Ok(result);
             }
 
-            return  BadRequest(result);
+            return BadRequest(result);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.DBClasses;
 using Entities.DTOClasses.ReturnResults;
@@ -35,7 +37,7 @@ namespace Business.Concrete
 
         public async Task<IDataResult<List<Album>>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Album>>(await _albumDal.GetAll(), ConstantMessages.AlbumListed);
         }
 
         public async Task<IDataResult<Album>> GetById(int albumId)
