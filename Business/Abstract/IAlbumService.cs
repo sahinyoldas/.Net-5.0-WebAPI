@@ -12,7 +12,7 @@ namespace Business.Abstract
     {
         Task<IDataResult<List<Album>>> GetAll();
         Task<IDataResult<List<Album>>> GetAlbumListByTitleAndArtistName(string title, string artistName);
-        Task<IDataResult<Album>> GetById(int albumId);
+        Task<IDataResult<Album>> GetById(long albumId);
         Task<IResult> Delete(Album album);
         Task<IResult> Update(Album album);
         Task<IResult> Add(Album album);

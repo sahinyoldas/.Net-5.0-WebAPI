@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface IUserService
     {
         Task<IDataResult<List<User>>> GetAll();
-        Task<IDataResult<User>> GetById(int userId);
+        Task<IDataResult<User>> GetById(long userId);
         Task<IResult> Delete(User user);
         Task<IResult> Update(User user);
         Task<IResult> Add(User user);

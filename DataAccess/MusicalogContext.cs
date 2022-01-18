@@ -17,8 +17,7 @@ namespace DataAccess
 
         public DbSet<User> Users { get; set; }
         public DbSet<Catalog> Catalogs { get; set; }
-        public DbSet<Album> Albums { get; set; }
-        public DbSet<AlbumStock> AlbumStocks { get; set; }
+        public DbSet<Album> Albums { get; set; }    
         public DbSet<CatalogAlbum> CatalogAlbums { get; set; }
 
     }

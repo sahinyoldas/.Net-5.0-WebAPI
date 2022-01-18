@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +21,10 @@ namespace Entities.DBClasses
         public string ArtistName { get; set; }
 
         public int Year { get; set; }
+
+        public long Stock { get; set; }
+
+        public AlbumType AlbumType { get; set; }
 
     }
 }

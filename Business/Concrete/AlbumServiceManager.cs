@@ -16,6 +16,7 @@ namespace Business.Concrete
     public class AlbumServiceManager : IAlbumService
     {
         private readonly IAlbumDal _albumDal;
+
         public AlbumServiceManager(IAlbumDal albumDal)
         {
             _albumDal = albumDal;
@@ -41,7 +42,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Album>>(await _albumDal.GetAll(), ConstantMessages.AlbumListed);
         }
 
-        public async Task<IDataResult<Album>> GetById(int albumId)
+        public async Task<IDataResult<Album>> GetById(long albumId)
         {
             throw new NotImplementedException();
         }

@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface ICatalogService
     {
         Task<IDataResult<List<Catalog>>> GetAll();
-        Task<IDataResult<Catalog>> GetById(int catalogId);
+        Task<IDataResult<List<Catalog>>> GetByUserId(long userId);
         Task<IResult> Delete(Catalog catalog);
         Task<IResult> Update(Catalog catalog);
         Task<IResult> Add(Catalog catalog);

@@ -15,7 +15,7 @@ namespace Business.Concrete
     {
         private readonly ICatalogAlbumDal _catalogAlbumDal;
 
-        public  CatalogAlbumServiceManager(ICatalogAlbumDal catalogAlbumDal)
+        public CatalogAlbumServiceManager(ICatalogAlbumDal catalogAlbumDal)
         {
             _catalogAlbumDal = catalogAlbumDal;
         }
@@ -30,19 +30,10 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public async Task<IDataResult<List<CatalogAlbum>>> GetAll()
+        public async Task<IDataResult<List<CatalogAlbum>>> GetByCatalogId(long catalogId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IDataResult<CatalogAlbum>> GetById(int catalogAlbumStockId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IResult> Update(CatalogAlbum catalogAlbum)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

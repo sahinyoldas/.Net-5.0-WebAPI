@@ -35,7 +35,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public async Task<IDataResult<User>> GetById(int userId)
+        public async Task<IDataResult<User>> GetById(long userId)
         {
             throw new NotImplementedException();
         }

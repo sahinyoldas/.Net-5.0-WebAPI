@@ -10,10 +10,8 @@ namespace Business.Abstract
 {
     public interface ICatalogAlbumService
     {
-        Task<IDataResult<List<CatalogAlbum>>> GetAll();
-        Task<IDataResult<CatalogAlbum>> GetById(int catalogAlbumStockId);
+        Task<IDataResult<List<CatalogAlbum>>> GetByCatalogId(long catalogId);
         Task<IResult> Delete(CatalogAlbum catalogAlbum);
-        Task<IResult> Update(CatalogAlbum catalogAlbum);
         Task<IResult> Add(CatalogAlbum catalogAlbum);
     }
 }
