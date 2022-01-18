@@ -19,7 +19,6 @@ namespace Business.AutoFac
         {
             builder.RegisterType<AlbumServiceManager>().As<IAlbumService>().SingleInstance();
             builder.RegisterType<AlbumDalRepository>().As<IAlbumDal>().SingleInstance();
-
         }
     }
 }

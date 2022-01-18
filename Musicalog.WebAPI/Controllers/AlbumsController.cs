@@ -18,7 +18,10 @@ namespace Musicalog.WebAPI.Controllers
 
         [HttpGet("getall")]
         public async Task<IActionResult> GetAll()
-        {       
+        {
+            int aaaa = 2;
+            int b = 0;
+            int c = aaaa / b;
             var result = await _albumService.GetAll();
 
             if (result.Success)

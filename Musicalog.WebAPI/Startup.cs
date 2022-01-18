@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Musicalog.WebAPI.Extensions;
+using Musicalog.WebAPI.Extensions.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +30,7 @@ namespace Musicalog.WebAPI
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Musicalog.WebAPI", Version = "v1" });
-            });
+            services.AddSwaggerExtension();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +42,8 @@ namespace Musicalog.WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Musicalog.WebAPI v1"));
             }
+
+            app.AddGeneralExceptionHandlingMiddleware();
 
             app.UseHttpsRedirection();
 
