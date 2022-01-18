@@ -5,7 +5,6 @@ namespace Musicalog.WebAPI.Extensions.Service
 {
     public static class SwaggerServiceExtension
     {
-
         public static void AddSwaggerExtension(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>

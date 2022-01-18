@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Business.FluentValidation;
+using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -27,29 +31,32 @@ namespace Musicalog.WebAPI.Middlewares
             }
         }
 
-        private async Task HandleException(HttpContext context, Exception error)
+        private Task HandleException(HttpContext context, Exception error)
         {
-            var response = context.Response;
-            response.ContentType = "application/json";
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            switch (error)
+            string message = "Internal Server Error";
+            IEnumerable<ValidationFailure> errors;
+            if (error.GetType() == typeof(ValidationException))
             {
-                case DivideByZeroException e:
-                    // divide by zero xxception error
-                    response.StatusCode = (int)HttpStatusCode.NotImplemented;
-                    break;
-                case UnauthorizedAccessException e:
-                    // divide by zero xxception error
-                    response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    break;
-                default:
-                    // unhandled error
-                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    break;
+                message = error.Message;
+                errors = ((ValidationException)error).Errors;
+                context.Response.StatusCode = 400;
+
+                return context.Response.WriteAsync(new ValidationErrorDetails
+                {
+                    StatusCode = 400,
+                    Message = message,
+                    Errors = errors
+                }.ToString());
             }
 
-            var result = JsonSerializer.Serialize(new { Message = error?.Message, StatusCode = response.StatusCode });
-            await response.WriteAsync(result);
+            return context.Response.WriteAsync(new ErrorDetails
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = message
+            }.ToString());
         }
 
     }

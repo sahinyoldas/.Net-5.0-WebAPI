@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract
+namespace DataAccess.Abstract.Repositories
 {
-    public interface ICatalogAlbumDal : IBaseEntityRespository<CatalogAlbum>
+    public interface IUserDal : IBaseEntityRespository<User>
     {
     }
 }
