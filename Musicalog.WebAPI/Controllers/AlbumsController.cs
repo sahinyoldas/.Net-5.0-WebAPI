@@ -37,7 +37,6 @@ namespace Musicalog.WebAPI.Controllers
         [ProducesResponseType(typeof(ErrorResult), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Add(Album album)
         {
-
             var result = await _albumService.Add(album);
 
             if (result.Success)
