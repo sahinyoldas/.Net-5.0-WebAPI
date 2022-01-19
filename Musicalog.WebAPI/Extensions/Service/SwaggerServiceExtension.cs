@@ -9,7 +9,16 @@ namespace Musicalog.WebAPI.Extensions.Service
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Musicalog.WebAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Musicalog.WebAPI",
+                    Version = "v1",
+                    Contact = new OpenApiContact()
+                    {
+                        Name = "SAHIN YOLDAS",
+                        Email = "sahinyoldas@gmail.com"
+                    }
+                });
             });
         }
     }

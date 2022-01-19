@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
+using Business.AutoFac.AspectConfiguration;
 using Business.Concrete;
 using Castle.DynamicProxy;
 using DataAccess.Abstract;
@@ -22,14 +23,14 @@ namespace Business.AutoFac
             builder.RegisterType<AlbumServiceManager>().As<IAlbumService>().SingleInstance();
             builder.RegisterType<AlbumDalRepository>().As<IAlbumDal>().SingleInstance();
 
-            /*asagidaki kod attiribute olarak eklenen aspeclerin calistirilmasi icin gereklidir. yoksa sistem o attirbutun autofac tarafindan olusturuldugunu anlayamayacak*/
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-            //builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-            //    .EnableInterfaceInterceptors(new ProxyGenerationOptions()
-            //    {
-            //        Selector = new AspectInterceptorSelector()
-            //    }).SingleInstance();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
         }
     }
 }

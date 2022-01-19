@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.AutoFac.Aspects.Validation;
+using Business.FluentValidation;
 using Entities.DBClasses;
 using Entities.DTOClasses.ReturnResultsEntities;
 using Microsoft.AspNetCore.Http;
