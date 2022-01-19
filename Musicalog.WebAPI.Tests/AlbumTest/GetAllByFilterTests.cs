@@ -26,7 +26,7 @@ namespace Musicalog.WebAPI.Tests.AlbumTest
         }
 
         [Theory, AutoData]
-        public async Task GetAlbumListByTitleAndArtistName_WhenSucces_ShouldReturnOkResult()
+        public async Task GetAlbumListByTitleAndArtistName_WhenSucces_ShouldReturnOkResult(string title, string artistName)
         {
             using var mock = AutoMock.GetStrict();
             var listedAlbums = _fixture.Build<DataResult<List<Album>>>().With(d => d.Success, true).Create();
@@ -44,7 +44,7 @@ namespace Musicalog.WebAPI.Tests.AlbumTest
         }
 
         [Theory, AutoData]
-        public async Task GetAlbumListByTitleAndArtistName_WhenFail_ShouldReturnBadRequest()
+        public async Task GetAlbumListByTitleAndArtistName_WhenFail_ShouldReturnBadRequest(string title, string artistName)
         {
             using var mock = AutoMock.GetStrict();
             var listedAlbums = _fixture.Build<DataResult<List<Album>>>().With(d => d.Success, false).Create();
@@ -53,9 +53,9 @@ namespace Musicalog.WebAPI.Tests.AlbumTest
             var albumController = mock.Create<AlbumsController>();
             var result = await albumController.GetAll();
 
-            var returnObject = result as OkObjectResult;
+            var returnObject = result as BadRequestObjectResult;
 
-            Assert.Equal((int)HttpStatusCode.OK, returnObject?.StatusCode);
+            Assert.Equal((int)HttpStatusCode.BadRequest, returnObject?.StatusCode);
 
             mock.Mock<IAlbumService>().Verify(x => x.GetAll(), Times.Once);
 

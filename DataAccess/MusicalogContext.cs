@@ -28,9 +28,6 @@ namespace DataAccess
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
-
             modelBuilder.Entity<User>().HasData(
                 new User
                 {

@@ -53,9 +53,9 @@ namespace Musicalog.WebAPI.Tests.AlbumTest
             var albumController = mock.Create<AlbumsController>();
             var result = await albumController.GetAll();
 
-            var returnObject = result as OkObjectResult;
+            var returnObject = result as BadRequestObjectResult;
 
-            Assert.Equal((int)HttpStatusCode.OK, returnObject?.StatusCode);
+            Assert.Equal((int)HttpStatusCode.BadRequest, returnObject?.StatusCode);
 
             mock.Mock<IAlbumService>().Verify(x => x.GetAll(), Times.Once);
 
