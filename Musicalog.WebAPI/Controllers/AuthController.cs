@@ -36,7 +36,7 @@ namespace Musicalog.WebAPI.Controllers
             var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result != null)
             {
-                return Ok(result);
+                return Ok(result.Result);
             }
 
             return BadRequest();

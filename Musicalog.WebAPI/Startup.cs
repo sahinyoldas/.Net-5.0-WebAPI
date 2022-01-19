@@ -35,26 +35,7 @@ namespace Musicalog.WebAPI
 
             services.AddControllers();
             services.AddSwaggerExtension();
-
-            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-            services.AddAuthentication(auth =>
-            {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = tokenOptions.Issuer,
-                    ValidateAudience = true,
-                    ValidAudience = tokenOptions.Audience,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
-                };
-            });
+            services.AddJwtExtension(Configuration.GetSection("TokenOptions").Get<TokenOptions>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
