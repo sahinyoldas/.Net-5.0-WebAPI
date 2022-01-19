@@ -17,8 +17,10 @@ namespace Entities.DBClasses
 
         public long UserId { get; set; }
 
-        [StringLength(50)]
-        [Required]
-        public string Role { get; set; }
+        [ForeignKey("RoleId")]
+        public virtual Role Role { get; set; }
+
+        public long RoleId { get; set; }
+
     }
 }

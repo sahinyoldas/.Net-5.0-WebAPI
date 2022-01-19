@@ -37,15 +37,11 @@ namespace Business.Concrete
             claims.Add(new Claim("username", user.Email));
             claims.Add(new Claim("displayname", user.Name));
 
-            claims.Add(new Claim(ClaimTypes.Role, "admin"));
+            foreach (var userRole in user.UserRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole.Role.Name));
+            }
 
-            //foreach (var role in user.UserRoles)
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role.Role));
-            //}
-
-            // create a new token with token helper and add our claim
-            // from `Westwind.AspNetCore`  NuGet Package
             var token = JwtHelper.GetJwtToken(
                 user.Email,
                 _tokenOptions.SecurityKey,

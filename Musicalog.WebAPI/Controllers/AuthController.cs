@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.DTOClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,12 @@ namespace Musicalog.WebAPI.Controllers
             _authService = authService;
         }
 
+        /// <summary>
+        /// Login For Authorization
+        /// </summary>
+        /// <param name="userLoginDto"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {

@@ -18,7 +18,8 @@ namespace DataAccess.Concrete.RepositoryImplementations
         {
             using (MusicalogContext context = new MusicalogContext())
             {
-                return await context.Users.Where(d => d.Email == userLoginDto.Email && d.Password == userLoginDto.Password).FirstOrDefaultAsync();
+                return await context.Users.
+                    Include(a => a.UserRoles).ThenInclude(b => b.Role).Where(d => d.Email == userLoginDto.Email && d.Password == userLoginDto.Password).FirstOrDefaultAsync();
             }
         }
     }

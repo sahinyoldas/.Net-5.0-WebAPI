@@ -20,5 +20,7 @@ namespace Entities.DBClasses
         [StringLength(100)]
         [Required]
         public string Name { get; set; }
+
+        public ICollection<CatalogAlbum> CatalogAlbums { get; set; }
     }
 }

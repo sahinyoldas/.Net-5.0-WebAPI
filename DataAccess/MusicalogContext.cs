@@ -28,6 +28,9 @@ namespace DataAccess
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+
+
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
@@ -47,10 +50,16 @@ namespace DataAccess
                 }
             );
 
+            modelBuilder.Entity<Role>().HasData(
+              new Role { Id = 1, Name = "admin" },
+              new Role { Id = 2, Name = "add" },
+              new Role { Id = 3, Name = "list" }
+          );
+
             modelBuilder.Entity<UserRole>().HasData(
-                new UserRole { Id = 1, UserId = 1, Role = "admin"},
-                new UserRole { Id = 2, UserId = 2, Role = "add" },
-                new UserRole { Id = 3, UserId = 2, Role = "list" }
+                new UserRole { Id = 1, UserId = 1, RoleId = 1 },
+                new UserRole { Id = 2, UserId = 2, RoleId = 2 },
+                new UserRole { Id = 3, UserId = 2, RoleId = 3 }
             );
         }
     }

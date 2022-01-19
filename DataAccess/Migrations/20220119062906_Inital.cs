@@ -25,6 +25,19 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -67,11 +80,17 @@ namespace DataAccess.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    RoleId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserRoles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
@@ -107,29 +126,38 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "BirthDate", "Email", "Name", "Password" },
-                values: new object[] { 1L, new DateTime(1997, 1, 19, 5, 30, 6, 595, DateTimeKind.Local).AddTicks(1880), "jack@jack.com", "Jack", "123" });
+                table: "Role",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "admin" },
+                    { 2L, "add" },
+                    { 3L, "list" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "BirthDate", "Email", "Name", "Password" },
-                values: new object[] { 2L, new DateTime(1992, 1, 19, 5, 30, 6, 596, DateTimeKind.Local).AddTicks(6926), "carol@carol.com", "Carol", "123" });
+                values: new object[,]
+                {
+                    { 1L, new DateTime(1997, 1, 19, 6, 29, 5, 864, DateTimeKind.Local).AddTicks(8223), "jack@jack.com", "Jack", "123" },
+                    { 2L, new DateTime(1992, 1, 19, 6, 29, 5, 866, DateTimeKind.Local).AddTicks(5631), "carol@carol.com", "Carol", "123" }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "Id", "Role", "UserId" },
-                values: new object[] { 1L, "admin", 1L });
+                columns: new[] { "Id", "RoleId", "UserId" },
+                values: new object[] { 1L, 1L, 1L });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "Id", "Role", "UserId" },
-                values: new object[] { 2L, "add", 2L });
+                columns: new[] { "Id", "RoleId", "UserId" },
+                values: new object[] { 2L, 2L, 2L });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
-                columns: new[] { "Id", "Role", "UserId" },
-                values: new object[] { 3L, "list", 2L });
+                columns: new[] { "Id", "RoleId", "UserId" },
+                values: new object[] { 3L, 3L, 2L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CatalogAlbums_AlbumId",
@@ -145,6 +173,11 @@ namespace DataAccess.Migrations
                 name: "IX_Catalogs_UserId",
                 table: "Catalogs",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_RoleId",
+                table: "UserRoles",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_UserId",
@@ -165,6 +198,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Catalogs");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "Users");

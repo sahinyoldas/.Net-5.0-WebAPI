@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MusicalogContext))]
-    [Migration("20220119053006_Inital")]
+    [Migration("20220119062906_Inital")]
     partial class Inital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,6 +96,40 @@ namespace DataAccess.Migrations
                     b.ToTable("CatalogAlbums");
                 });
 
+            modelBuilder.Entity("Entities.DBClasses.Role", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "add"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "list"
+                        });
+                });
+
             modelBuilder.Entity("Entities.DBClasses.User", b =>
                 {
                     b.Property<long>("Id")
@@ -129,7 +163,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            BirthDate = new DateTime(1997, 1, 19, 5, 30, 6, 595, DateTimeKind.Local).AddTicks(1880),
+                            BirthDate = new DateTime(1997, 1, 19, 6, 29, 5, 864, DateTimeKind.Local).AddTicks(8223),
                             Email = "jack@jack.com",
                             Name = "Jack",
                             Password = "123"
@@ -137,7 +171,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2L,
-                            BirthDate = new DateTime(1992, 1, 19, 5, 30, 6, 596, DateTimeKind.Local).AddTicks(6926),
+                            BirthDate = new DateTime(1992, 1, 19, 6, 29, 5, 866, DateTimeKind.Local).AddTicks(5631),
                             Email = "carol@carol.com",
                             Name = "Carol",
                             Password = "123"
@@ -151,15 +185,15 @@ namespace DataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<long>("RoleId")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.HasIndex("UserId");
 
@@ -169,19 +203,19 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1L,
-                            Role = "admin",
+                            RoleId = 1L,
                             UserId = 1L
                         },
                         new
                         {
                             Id = 2L,
-                            Role = "add",
+                            RoleId = 2L,
                             UserId = 2L
                         },
                         new
                         {
                             Id = 3L,
-                            Role = "list",
+                            RoleId = 3L,
                             UserId = 2L
                         });
                 });
@@ -189,7 +223,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.DBClasses.Catalog", b =>
                 {
                     b.HasOne("Entities.DBClasses.User", "User")
-                        .WithMany("Catalogs")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -218,19 +252,25 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.DBClasses.UserRole", b =>
                 {
+                    b.HasOne("Entities.DBClasses.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.DBClasses.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Role");
+
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entities.DBClasses.User", b =>
                 {
-                    b.Navigation("Catalogs");
-
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

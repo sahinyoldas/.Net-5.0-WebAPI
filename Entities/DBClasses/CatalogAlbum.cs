@@ -21,5 +21,6 @@ namespace Entities.DBClasses
         public virtual Catalog Catalog { get; set; }
 
         public long CatalogId { get; set; }
+
     }
 }

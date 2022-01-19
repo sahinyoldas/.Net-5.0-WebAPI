@@ -44,6 +44,7 @@ namespace Musicalog.WebAPI.Controllers
         /// <param name="album"></param>
         /// <returns></returns>
         [HttpPost("add")]
+        [Authorize(Roles = "admin,add")]
         public async Task<IActionResult> Add(Album album)
         {
             var result = await _albumService.Add(album);
@@ -62,6 +63,7 @@ namespace Musicalog.WebAPI.Controllers
         /// <param name="album"></param>
         /// <returns></returns>
         [HttpPut("update")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(Album album)
         {
             var result = await _albumService.Update(album);
@@ -81,6 +83,7 @@ namespace Musicalog.WebAPI.Controllers
         /// <param name="artistName"></param>
         /// <returns></returns>
         [HttpGet("albumsbyfilter")]
+        [Authorize(Roles = "admin,list")]
         public async Task<IActionResult> GetAlbumListByTitleAndArtistName(string title, string artistName)
         {
             var result = await _albumService.GetAlbumListByTitleAndArtistName(title, artistName);
@@ -99,6 +102,7 @@ namespace Musicalog.WebAPI.Controllers
         /// <param name="album"></param>
         /// <returns></returns>
         [HttpDelete("delete")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Album album)
         {
             var result = await _albumService.Delete(album);

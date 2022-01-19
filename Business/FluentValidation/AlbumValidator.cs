@@ -16,7 +16,7 @@ namespace Business.FluentValidation
             RuleFor(p => p.ArtistName).NotEmpty();
             RuleFor(p => p.Title).NotEmpty();
             RuleFor(p => p.Stock).GreaterThan(0).WithMessage(ConstantMessages.AlbumStockWarning);
-            RuleFor(p => p.Year).LessThan(0).WithMessage(ConstantMessages.AlbumYearWarning);
+            RuleFor(p => p.Year).GreaterThan(0).WithMessage(ConstantMessages.AlbumYearWarning);
         }
     }
 }
