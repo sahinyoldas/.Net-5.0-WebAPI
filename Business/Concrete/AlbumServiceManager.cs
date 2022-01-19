@@ -42,7 +42,8 @@ namespace Business.Concrete
 
         public async Task<IResult> Delete(Album album)
         {
-            throw new NotImplementedException();
+            await _albumDal.Delete(album);
+            return new SuccessResult("sahin album basaruyla silindi");
         }
 
         public async Task<IDataResult<IList<Album>>> GetAlbumListByTitleAndArtistName(string title, string artistName)
