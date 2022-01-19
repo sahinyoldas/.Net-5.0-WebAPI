@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.DTOClasses.ReturnResultsEntities
+namespace Entities
 {
-    internal class Class1
+    internal interface IBaseDto
     {
     }
 }

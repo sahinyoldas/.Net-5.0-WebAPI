@@ -3,6 +3,7 @@ using Business.AutoFac.Aspects.Validation;
 using Business.FluentValidation;
 using Entities.DBClasses;
 using Entities.DTOClasses.ReturnResultsEntities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace Musicalog.WebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("all")]
+        [Authorize(Roles = "admin,list")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _albumService.GetAll();

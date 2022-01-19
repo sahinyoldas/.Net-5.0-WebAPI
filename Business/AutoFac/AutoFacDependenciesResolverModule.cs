@@ -22,6 +22,9 @@ namespace Business.AutoFac
         {
             builder.RegisterType<AlbumServiceManager>().As<IAlbumService>().SingleInstance();
             builder.RegisterType<AlbumDalRepository>().As<IAlbumDal>().SingleInstance();
+            builder.RegisterType<AuthServiceManager>().As<IAuthService>().SingleInstance();
+            builder.RegisterType<UserServiceManager>().As<IUserService>().SingleInstance();
+            builder.RegisterType<UserDalRepository>().As<IUserDal>().SingleInstance();
 
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

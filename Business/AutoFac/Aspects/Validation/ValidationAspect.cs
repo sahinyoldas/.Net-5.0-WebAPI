@@ -1,4 +1,5 @@
 ﻿using Business.AutoFac.AspectConfiguration;
+using Business.Constants;
 using Castle.DynamicProxy;
 using FluentValidation;
 using System;
@@ -16,7 +17,7 @@ namespace Business.AutoFac.Aspects.Validation
         {
             if (!typeof(IValidator).IsAssignableFrom(validatorType))
             {
-                throw new System.Exception("sahin Bu bir doğrulama sınıfı değil");
+                throw new System.Exception(ConstantMessages.FluentValidationUnValidClass);
             }
 
             _validatorType = validatorType;

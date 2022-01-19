@@ -1,4 +1,5 @@
 ﻿using Entities.DBClasses;
+using Entities.DTOClasses;
 using Entities.DTOClasses.ReturnResultsEntities;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace Business.Abstract
         Task<IResult> Delete(User user);
         Task<IResult> Update(User user);
         Task<IResult> Add(User user);
+        Task<User> GetUserByEmailAndPassword(UserLoginDto userLoginDto);
     }
 }

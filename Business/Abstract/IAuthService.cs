@@ -1,16 +1,18 @@
 ﻿using Entities.DBClasses;
 using Entities.DTOClasses;
 using Entities.DTOClasses.ReturnResultsEntities;
+using Entities.JWT;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract.Repositories
+namespace Business.Abstract
 {
-    public interface IUserDal : IBaseEntityRespository<User>
+    public interface IAuthService
     {
-        Task<User> GetUserByEmailAndPassword(UserLoginDto userLoginDto);    
+        Task<IDataResult<User>> Login(UserLoginDto userLoginDto);
+        Task<AccessToken> CreateAccessToken(User user);
     }
 }

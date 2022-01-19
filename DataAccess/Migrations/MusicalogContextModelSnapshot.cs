@@ -15,16 +15,16 @@ namespace DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.12")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Entities.DBClasses.Album", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AlbumType")
                         .HasColumnType("int");
@@ -55,7 +55,7 @@ namespace DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -77,7 +77,7 @@ namespace DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("AlbumId")
                         .HasColumnType("bigint");
@@ -99,7 +99,7 @@ namespace DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
@@ -122,12 +122,72 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            BirthDate = new DateTime(1997, 1, 19, 5, 30, 6, 595, DateTimeKind.Local).AddTicks(1880),
+                            Email = "jack@jack.com",
+                            Name = "Jack",
+                            Password = "123"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            BirthDate = new DateTime(1992, 1, 19, 5, 30, 6, 596, DateTimeKind.Local).AddTicks(6926),
+                            Email = "carol@carol.com",
+                            Name = "Carol",
+                            Password = "123"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.DBClasses.UserRole", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Role = "admin",
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Role = "add",
+                            UserId = 2L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Role = "list",
+                            UserId = 2L
+                        });
                 });
 
             modelBuilder.Entity("Entities.DBClasses.Catalog", b =>
                 {
                     b.HasOne("Entities.DBClasses.User", "User")
-                        .WithMany()
+                        .WithMany("Catalogs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -152,6 +212,24 @@ namespace DataAccess.Migrations
                     b.Navigation("Album");
 
                     b.Navigation("Catalog");
+                });
+
+            modelBuilder.Entity("Entities.DBClasses.UserRole", b =>
+                {
+                    b.HasOne("Entities.DBClasses.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Entities.DBClasses.User", b =>
+                {
+                    b.Navigation("Catalogs");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

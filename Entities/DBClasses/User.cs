@@ -24,5 +24,8 @@ namespace Entities.DBClasses
         [StringLength(100)]
         [Required]
         public string Password { get; set; }
+
+        public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<Catalog> Catalogs { get; set; }
     }
 }

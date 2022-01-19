@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Abstract.Repositories;
+using Entities.DTOClasses;
 
 namespace Business.Concrete
 {
@@ -43,6 +44,11 @@ namespace Business.Concrete
         public async Task<IResult> Update(User user)
         {
             throw new NotImplementedException();
+        }  
+
+        public async Task<User> GetUserByEmailAndPassword(UserLoginDto userLoginDto)
+        {
+            return await _userDal.GetUserByEmailAndPassword(userLoginDto);
         }
     }
 }

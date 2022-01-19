@@ -30,12 +30,12 @@ namespace Business.Concrete
 
             if (result.Result.Success)
             {
-                return new ErrorResult("sahin Amca bu kayittan zaten  var");
+                return new ErrorResult(ConstantMessages.RecordAlreadyExist);
             }
 
             await _albumDal.Add(album);
 
-            return new SuccessResult("sahin album eklendi");
+            return new SuccessResult(ConstantMessages.AlbumAdded);
         }
 
         private async Task<Result> CheckIfAlbumExist(Album album)
@@ -46,23 +46,23 @@ namespace Business.Concrete
         public async Task<IResult> Delete(Album album)
         {
             await _albumDal.Delete(album);
-            return new SuccessResult("sahin album basaruyla silindi");
+            return new SuccessResult(ConstantMessages.AlbumDeleted);
         }
 
         public async Task<IDataResult<IList<Album>>> GetAlbumListByTitleAndArtistName(string title, string artistName)
         {
             IList<Album> result = await _albumDal.GetAlbumListByTitleAndArtistName(title, artistName);
-            return new SuccessDataResult<IList<Album>>(result, "sahin albumler listelendi");
+            return new SuccessDataResult<IList<Album>>(result, ConstantMessages.AlbumsListed);
         }
 
         public async Task<IDataResult<List<Album>>> GetAll()
         {
-            return new SuccessDataResult<List<Album>>(await _albumDal.GetAll(), ConstantMessages.AlbumListed);
+            return new SuccessDataResult<List<Album>>(await _albumDal.GetAll(), ConstantMessages.AlbumsListed);
         }
 
         public async Task<IDataResult<Album>> GetById(long albumId)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Album>(await _albumDal.Get(d => d.Id == albumId));
         }
 
         public async Task<IResult> Update(Album album)
@@ -71,12 +71,12 @@ namespace Business.Concrete
 
             if (result.Result.Success)
             {
-                return new ErrorResult("sahin guncelleme yapacaginiz kayittan zaten var");
+                return new ErrorResult(ConstantMessages.RecordAlreadyExist);
             }
 
             await _albumDal.Update(album);
 
-            return new SuccessResult("sahin album guncellendi");
+            return new SuccessResult(ConstantMessages.AlbumUpdated);
         }
     }
 }

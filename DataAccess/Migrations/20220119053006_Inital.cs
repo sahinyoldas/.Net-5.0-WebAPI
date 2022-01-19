@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,9 @@ namespace DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     ArtistName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false)
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Stock = table.Column<long>(type: "bigint", nullable: false),
+                    AlbumType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,27 +41,6 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AlbumStocks",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AlbumId = table.Column<long>(type: "bigint", nullable: false),
-                    Stock = table.Column<long>(type: "bigint", nullable: false),
-                    AlbumType = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AlbumStocks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AlbumStocks_Albums_AlbumId",
-                        column: x => x.AlbumId,
-                        principalTable: "Albums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Catalogs",
                 columns: table => new
                 {
@@ -73,6 +54,26 @@ namespace DataAccess.Migrations
                     table.PrimaryKey("PK_Catalogs", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Catalogs_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -105,10 +106,30 @@ namespace DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AlbumStocks_AlbumId",
-                table: "AlbumStocks",
-                column: "AlbumId");
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "BirthDate", "Email", "Name", "Password" },
+                values: new object[] { 1L, new DateTime(1997, 1, 19, 5, 30, 6, 595, DateTimeKind.Local).AddTicks(1880), "jack@jack.com", "Jack", "123" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "BirthDate", "Email", "Name", "Password" },
+                values: new object[] { 2L, new DateTime(1992, 1, 19, 5, 30, 6, 596, DateTimeKind.Local).AddTicks(6926), "carol@carol.com", "Carol", "123" });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "Id", "Role", "UserId" },
+                values: new object[] { 1L, "admin", 1L });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "Id", "Role", "UserId" },
+                values: new object[] { 2L, "add", 2L });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "Id", "Role", "UserId" },
+                values: new object[] { 3L, "list", 2L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CatalogAlbums_AlbumId",
@@ -124,15 +145,20 @@ namespace DataAccess.Migrations
                 name: "IX_Catalogs_UserId",
                 table: "Catalogs",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_UserId",
+                table: "UserRoles",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AlbumStocks");
+                name: "CatalogAlbums");
 
             migrationBuilder.DropTable(
-                name: "CatalogAlbums");
+                name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "Albums");
